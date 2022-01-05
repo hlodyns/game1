@@ -24,6 +24,7 @@ class Game:
         time.sleep(delay)
 
 game_functions = Game()
+
 class player:
     def __init__(self, location, health, armor, att_point, items):
         self.health = health
@@ -33,6 +34,7 @@ class player:
         self.att_point = att_point #Henüz kullanılmıyor.
         
 hero = player("", 100, 0, 1, [])
+
 class NPC:
     def __init__(self, name, location):
         self.name = name
@@ -156,11 +158,7 @@ class World:
         print(f"\nHealth:{hero.health}")
         game_functions.fprint("You are in a wide hallway. It continues on and on and on.", 2)
         
-        medkit_find = random.randint(0,100)
-        if medkit_find <= 30:
-            hero.items.append("medkit")
-            game_functions.fprint("You found a medkit.", 2)
-            print("Enter 'm' to use it.")
+        self.check_medkit()
         
         self.handle_goblin()
         
