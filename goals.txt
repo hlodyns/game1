@@ -1,0 +1,4 @@
+1- Inventory sistemi geliştirilecek
+2- Goblin attack
+3- Yeni itemlar
+4- Yeni odalar ve random events
