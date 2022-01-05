@@ -36,9 +36,11 @@ class NPC:
         self.location = location
         
     def attack(self):
-        game_functions.fprint(f"A {self.name} emerges from the shadows.")
+        game_functions.fprint(f"A {self.name} emerges from the shadows. And attacks you!")
         game_functions.fprint("'Hissssss! Stay away form me!!'")
-        hero.health -= 25
+        hp_reduce = random.randint(15,25)
+        hero.health -= hp_reduce
+        game_functions.fprint(f"\nYou lost {hp_reduce} hp. Health:{hero.health}")
 
     def move(self):
         available_locations = ["entry", "cavern", "hallway", "pit"]
