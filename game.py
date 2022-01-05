@@ -3,6 +3,7 @@ import os
 import random
 import time
 
+#BİSMİLLAHİRRAHMANİRRAHİM
 class Game:
     def print_slow(self, str, delay = 0.1):
         for letter in str:
