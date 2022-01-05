@@ -1,5 +1,6 @@
 1- Inventory sistemi geliştirilecek
-2- Goblin attack
+2- Goblin attack (eklendi, geliştirilecek)
 3- Yeni itemlar
 4- Yeni odalar ve random events
 5- Yeni npcler ve dropped item sistemi
+6- Combat sistemi başlangıcı

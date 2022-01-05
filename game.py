@@ -25,11 +25,14 @@ class Game:
 
 game_functions = Game()
 class player:
-    def __init__(self, location, health, items):
+    def __init__(self, location, health, armor, att_point, items):
         self.health = health
         self.items = items
         self.location = location
-hero = player("", 100,[])
+        self.armor = armor
+        self.att_point = att_point #Henüz kullanılmıyor.
+        
+hero = player("", 100, 0, 1, [])
 class NPC:
     def __init__(self, name, location):
         self.name = name
@@ -38,7 +41,7 @@ class NPC:
     def attack(self):
         game_functions.fprint(f"A {self.name} emerges from the shadows. And attacks you!")
         game_functions.fprint("'Hissssss! Stay away form me!!'")
-        hp_reduce = random.randint(15,25)
+        hp_reduce = random.randint(15,25)% 5*hero.armor 
         hero.health -= hp_reduce
         game_functions.fprint(f"\nYou lost {hp_reduce} hp. Health:{hero.health}")
 
@@ -76,7 +79,7 @@ class World:
         bat_attack = random.choice([True, False])
         if bat_attack == True:
             game_functions.fprint("You were attacked by a swarm of bats!", 2)
-            hero.health -= random.randint(10,30)
+            hero.health -= random.randint(10,30) % 5*hero.armor 
             game_functions.fprint(f"\nHealth: {hero.health}", 2)
         
     def handle_goblin(self):
@@ -84,13 +87,21 @@ class World:
         if hero.location == goblin.location:
             goblin.attack()    
 
+    def show_stats(self):
+        print(f"\nHP: {hero.health}")
+        print(f"\nArmor: {hero.armor}")
+        print(f"\nAtt. Points: {hero.att_point}")
+
     def menu(self):
         print("1-) Start Game!")
-        print("2-) Exit")
+        print("2-) Help")
+        print("3-) Exit")
         choice = input("\n> ")
         if choice == "1":
             self.entry()
         elif choice == "2":
+            print("Type 'stats' to see your characters stats.")
+        elif choice == "3":
             sys.exit()
         else:
             print("Please type 1 to start the game or type 2 to exit the game.")
@@ -108,6 +119,8 @@ class World:
                 self.cavern()
             elif action == "no":
                 game_functions.fprint("A bat flies over your head and you hear noises in the distance.")  
+            elif action == "stats":
+                self.show_stats()
             else:
                 game_functions.fprint("You sit in total darkness, wondering if there is a way out.")
 
@@ -132,6 +145,8 @@ class World:
                 game_functions.fprint("You sit down and eat some food you brought with you.")        
             elif action == "m":
                 self.use_medkit()  
+            elif action == "stats":
+                self.show_stats()
             else:
                 game_functions.fprint("You shiver from the cold.")    
 
@@ -158,6 +173,8 @@ class World:
                 game_functions.fprint("You try to call for help but no one is there.")        
             elif action == "m":
                 self.use_medkit()    
+            elif action == "stats":
+                self.show_stats()
             else:
                 game_functions.fprint("You wonder what time it is.")
 
@@ -183,6 +200,8 @@ class World:
                 game_functions.fprint("You sit in utter darknes")        
             elif action == "m":
                 self.use_medkit()   
+            elif action == "stats":
+                self.show_stats()
             else:
                 game_functions.fprint("You feel hopeless.")
 
