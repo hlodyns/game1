@@ -76,14 +76,13 @@ class World:
 
     def check_medkit(self):
         medkit_find = random.randint(0,100)
-        if medkit_find <= 100:
+        if medkit_find <= 20:
             hero.items.append("medkit")
             game_functions.fprint("You found a medkit.", 2)
             game_functions.fprint("Enter 'm' to use it.", 2)
 
     def check_bat_attack(self):
         bat_attack = random.choice([True, False])
-        bat_attack = True
         if bat_attack == True:
             game_functions.fprint("You were attacked by a swarm of bats!", 2)
             attack_value = random.randint(10,30)
