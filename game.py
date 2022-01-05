@@ -2,6 +2,7 @@ import sys
 import os
 import random
 import time
+import math
 
 #BİSMİLLAHİRRAHMANİRRAHİM
 class Game:
@@ -34,7 +35,7 @@ class player:
         self.armor = armor
         self.att_point = att_point #Henüz kullanılmıyor.
         
-hero = player("", 100, 0, 1, [])
+hero = player("", 100, 1, 1, [])
 
 class NPC:
     def __init__(self, name, location):
@@ -44,8 +45,9 @@ class NPC:
     def attack(self):
         game_functions.fprint(f"A {self.name} emerges from the shadows. And attacks you!")
         game_functions.fprint("'Hissssss! Stay away form me!!'")
-        hp_reduce = random.randint(15,25)% 5*hero.armor 
-        hero.health -= hp_reduce
+        attack_value = random.randint(15,25)
+        hp_reduce = attack_value - (attack_value % (5 * hero.armor))
+        hero.health -= hp_reduce 
         game_functions.fprint(f"\nYou lost {hp_reduce} hp. Health:{hero.health}")
 
     def move(self):
@@ -61,6 +63,7 @@ class World:
         if "medkit" in hero.items:
             hero.items.remove("medkit")
             game_functions.fprint("You used your medkit.")
+            
             if hero.health == 100:
                 game_functions.fprint("You are at max health. You wasted your medkit for nothing.", 2)
             elif hero.health >= 90:
@@ -73,16 +76,19 @@ class World:
 
     def check_medkit(self):
         medkit_find = random.randint(0,100)
-        if medkit_find <= 20:
+        if medkit_find <= 100:
             hero.items.append("medkit")
             game_functions.fprint("You found a medkit.", 2)
             game_functions.fprint("Enter 'm' to use it.", 2)
 
     def check_bat_attack(self):
         bat_attack = random.choice([True, False])
+        bat_attack = True
         if bat_attack == True:
             game_functions.fprint("You were attacked by a swarm of bats!", 2)
-            hero.health -= random.randint(10,30) % 5*hero.armor 
+            attack_value = random.randint(10,30)
+            hp_reduce = attack_value - (attack_value % (5 * hero.armor)) 
+            hero.health -= hp_reduce 
             game_functions.fprint(f"\nHealth: {hero.health}", 2)
         
     def handle_goblin(self):
