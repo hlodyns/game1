@@ -3,6 +3,7 @@ import os
 import random
 import time
 
+#BİSMİLLAHİRRAHMANİRRAHİM
 
 class Game:
     def print_slow(self, str, delay = 0.1):
@@ -185,3 +186,5 @@ class World:
 new_world = World()
 
 new_world.menu()
+
+
