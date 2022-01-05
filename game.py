@@ -101,6 +101,7 @@ class World:
             self.entry()
         elif choice == "2":
             print("Type 'stats' to see your characters stats.")
+            self.menu()
         elif choice == "3":
             sys.exit()
         else:
@@ -209,6 +210,5 @@ new_world = World()
 
 new_world.menu()
 
-game_functions()
 
 
