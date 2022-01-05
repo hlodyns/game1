@@ -34,11 +34,16 @@ class player:
         self.location = location
         self.armor = armor
         self.att_point = att_point #Henüz kullanılmıyor.
-        
+
+    def hero_attack(self):
+        att_value = random.randint(10,15)+(hero.att_point*2)
+        game_functions.fprint(f"You attacked. {att_value} damage dealt.")
+
+
 hero = player("", 100, 1, 1, [])
 
 class NPC:
-    def __init__(self, name, location):
+    def __init__(self, name, location, health):
         self.name = name
         self.location = location
         
@@ -55,9 +60,10 @@ class NPC:
         self.location = random.choice(available_locations)
 
     
-goblin = NPC("goblin", "hallway")
+goblin = NPC("goblin", "hallway", 20)
 
 class World:
+    
     
     def use_medkit(self):
         if "medkit" in hero.items:
@@ -93,7 +99,8 @@ class World:
     def handle_goblin(self):
         goblin.move()
         if hero.location == goblin.location:
-            goblin.attack()    
+            goblin.attack()
+            game_functions.fprint("Type 'a' to attack back!")    
 
     def show_stats(self):
         print(f"\nHP: {hero.health}")
@@ -130,6 +137,8 @@ class World:
                 game_functions.fprint("A bat flies over your head and you hear noises in the distance.")  
             elif action == "stats":
                 self.show_stats()
+            elif action == "a":
+                hero.hero_attack()
             else:
                 game_functions.fprint("You sit in total darkness, wondering if there is a way out.")
 
@@ -156,6 +165,8 @@ class World:
                 self.use_medkit()  
             elif action == "stats":
                 self.show_stats()
+            elif action == "a":
+                hero.hero_attack()
             else:
                 game_functions.fprint("You shiver from the cold.")    
 
@@ -180,6 +191,8 @@ class World:
                 self.use_medkit()    
             elif action == "stats":
                 self.show_stats()
+            elif action == "a":
+                hero.hero_attack()
             else:
                 game_functions.fprint("You wonder what time it is.")
 
@@ -207,8 +220,12 @@ class World:
                 self.use_medkit()   
             elif action == "stats":
                 self.show_stats()
+            elif action == "a":
+                hero.hero_attack()
             else:
                 game_functions.fprint("You feel hopeless.")
+    
+
 
 new_world = World()
 
