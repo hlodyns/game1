@@ -3,8 +3,6 @@ import os
 import random
 import time
 
-#BİSMİLLAHİRRAHMANİRRAHİM
-
 class Game:
     def print_slow(self, str, delay = 0.1):
         for letter in str:
@@ -36,14 +34,17 @@ class NPC:
     def __init__(self, name, location):
         self.name = name
         self.location = location
-    
-    def talk(self):
+        
+    def attack(self):
         game_functions.fprint(f"A {self.name} emerges from the shadows.")
         game_functions.fprint("'Hissssss! Stay away form me!!'")
+        hero.health -= 25
 
     def move(self):
         available_locations = ["entry", "cavern", "hallway", "pit"]
         self.location = random.choice(available_locations)
+
+    
 goblin = NPC("goblin", "hallway")
 
 class World:
@@ -79,7 +80,7 @@ class World:
     def handle_goblin(self):
         goblin.move()
         if hero.location == goblin.location:
-            goblin.talk()    
+            goblin.attack()    
 
     def menu(self):
         print("1-) Start Game!")
@@ -162,7 +163,7 @@ class World:
         hero.location = "pit"
         print(f"\nHealth:{hero.health}")
         game_functions.fprint("You fall head first into a pit of ash and dust.", 2)
-        self.sprint("Luckily, you only landed on your back.", 2)
+        game_functions.sprint("Luckily, you only landed on your back.", 2)
         
         self.check_medkit()
         
@@ -186,5 +187,7 @@ class World:
 new_world = World()
 
 new_world.menu()
+
+game_functions()
 
 
