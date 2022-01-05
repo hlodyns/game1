@@ -2,3 +2,4 @@
 2- Goblin attack
 3- Yeni itemlar
 4- Yeni odalar ve random events
+5- Yeni npcler ve dropped item sistemi
