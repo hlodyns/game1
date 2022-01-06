@@ -28,7 +28,7 @@ class Game:
 game_functions = Game()
 
 class player:
-    def __init__(self, location, health, armor, att_point, items):
+    def __init__(self, location, health, armor, att_point, agility, int, items):
         self.health = health
         self.items = items
         self.location = location
@@ -38,9 +38,26 @@ class player:
     def hero_attack(self):
         att_value = random.randint(10,15)+(hero.att_point*2)
         game_functions.fprint(f"You attacked. {att_value} damage dealt.")
+    
+    def skill_melee(self):
+        att_value = 10 + hero.att_point*1.5
+        game_functions.fprint(f"You threw a punch. You dealt {att_value} damage.")
+
+    def skill_ranged(self):
+        att_value = 5 + hero.agility*2
+        if "bow" and "arrow" in hero.items:
+            goblin.health -= att_value
+        else:
+            print(f"You dont have a bow/arrow to shoot.")
+
+    def skill_heal(self):
+        value = 10 + hero.int*3
+        hero.health += value
 
 
-hero = player("", 100, 1, 1, [])
+
+
+hero = player("", 100, 1, 1, 1, 1, [])
 
 class NPC:
     def __init__(self, name, location, health):
@@ -167,6 +184,8 @@ class World:
                 self.show_stats()
             elif action == "a":
                 hero.hero_attack()
+            elif action == "melee":
+                hero.skill_melee()
             else:
                 game_functions.fprint("You shiver from the cold.")    
 
