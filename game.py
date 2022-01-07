@@ -80,7 +80,7 @@ class NPC:
         game_functions.fprint(f"A {self.name} emerges from the shadows. And attacks you!")
         game_functions.fprint("'Hissssss! Stay away form me!!'")
         attack_value = random.randint(15,25)
-        hp_reduce = attack_value - (attack_value % (5 * hero.armor))
+        hp_reduce = attack_value - (attack_value * 5 * hero.armor) / 100
         hero.health -= hp_reduce 
         game_functions.fprint(f"\nYou lost {hp_reduce} hp. Health:{hero.health}")
 
@@ -121,7 +121,7 @@ class World:
         if bat_attack == True:
             game_functions.fprint("You were attacked by a swarm of bats!", 2)
             attack_value = random.randint(10,30)
-            hp_reduce = attack_value - (attack_value % (5 * hero.armor)) 
+            hp_reduce = attack_value - (attack_value * 5 * hero.armor) / 100
             hero.health -= hp_reduce 
             game_functions.fprint(f"\nHealth: {hero.health}", 2)
         
@@ -153,12 +153,12 @@ class World:
         game_functions.fprint("You are in a dark cave! The entry has been sealed by fallen rocks. There is no way out.", 2)
         
         print("Ahead, you can see a cavern. Will you continue?")
-        print("Enter 'yes' or 'no'.")
+        print("Enter 'Y' or 'N'.")
         while True:
-            action = input("\n> ")
-            if action == "yes":
+            action = input("\n> ").upper()
+            if action == "Y":
                 self.cavern()
-            elif action == "no":
+            elif action == 'N':
                 game_functions.fprint("A bat flies over your head and you hear noises in the distance.")  
             elif action == "stats":
                 game_functions.show_stats()
@@ -180,12 +180,12 @@ class World:
         self.handle_goblin()
         
         print("You cannot go right or left. But the cave continues ahead. Will you go on ?")
-        print("Enter 'yes' or 'no'.")
+        print("Enter 'Y' or 'N'.")
         while True:
-            action = input("\n> ")
-            if action == "yes":
+            action = input("\n> ").upper()
+            if action == "Y":
                 self.hallway()
-            elif action == "no":
+            elif action == 'N':
                 game_functions.fprint("You sit down and eat some food you brought with you.")        
             elif action == "m":
                 self.use_medkit()  
@@ -208,12 +208,12 @@ class World:
         self.handle_goblin()
         
         print("There is no turning back. Will you go on?")
-        print("Enter 'yes' or 'no'.")
+        print("Enter 'Y' or 'N'.")
         while True:
-            action = input("\n> ")
-            if action == "yes":
+            action = input("\n> ").upper()
+            if action == "Y":
                 self.pit()
-            elif action == "no":
+            elif action == 'N':
                 game_functions.fprint("You try to call for help but no one is there.")        
             elif action == "m":
                 self.use_medkit()    
@@ -235,14 +235,14 @@ class World:
         self.handle_goblin()
         
         print("You can try to climb out. Will you try ?")
-        print("Enter 'yes' or 'no'.")
+        print("Enter 'Y' or 'N'.")
         while True:
-            action = input("\n> ")
-            if action == "yes":
+            action = input("\n> ").upper()
+            if action == "Y":
                 game_functions.fprint("You tried to climb out, but you slide of the rocky walls and fall back down.", 2)
                 print("GAME OVER!")
                 sys.exit()
-            elif action == "no":
+            elif action == 'N':
                 game_functions.fprint("You sit in utter darknes")        
             elif action == "m":
                 self.use_medkit()   
@@ -258,6 +258,3 @@ class World:
 new_world = World()
 
 new_world.menu()
-
-
-
