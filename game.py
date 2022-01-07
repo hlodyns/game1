@@ -24,16 +24,28 @@ class Game:
     def sprint (self, str, delay = 0):
         print(str)
         time.sleep(delay)
+    
+    def show_stats(self):
+        print(f"\nHP: {hero.health}")
+        print(f"\nArmor: {hero.armor}")
+        print(f"\nAtt. Points: {hero.att_point}")
+        print(f"\nAgility: {hero.agility}")
+        print(f"\nIntelligence: {hero.int}")
 
 game_functions = Game()
 
 class player:
-    def __init__(self, location, health, armor, att_point, agility, int, items):
+    def __init__(self, location, health, armor, att_point, agility, int, level, items):
         self.health = health
-        self.items = items
         self.location = location
         self.armor = armor
         self.att_point = att_point #Henüz kullanılmıyor.
+        self.agility = agility
+        self.int = int
+        self.level = level
+        self.items = items
+
+
 
     def hero_attack(self):
         att_value = random.randint(10,15)+(hero.att_point*2)
@@ -51,13 +63,13 @@ class player:
             print(f"You dont have a bow/arrow to shoot.")
 
     def skill_heal(self):
-        value = 10 + hero.int*3
-        hero.health += value
+        if hero.level <= 3:
+            value = 10 + hero.int*3
+            hero.health += value
+        else:
+            game_functions.fprint("This skill unlocks at level 3.")
 
-
-
-
-hero = player("", 100, 1, 1, 1, 1, [])
+hero = player("", 100, 1, 1, 1, 1, 1, [])
 
 class NPC:
     def __init__(self, name, location, health):
@@ -119,11 +131,6 @@ class World:
             goblin.attack()
             game_functions.fprint("Type 'a' to attack back!")    
 
-    def show_stats(self):
-        print(f"\nHP: {hero.health}")
-        print(f"\nArmor: {hero.armor}")
-        print(f"\nAtt. Points: {hero.att_point}")
-
     def menu(self):
         print("1-) Start Game!")
         print("2-) Help")
@@ -138,6 +145,7 @@ class World:
             sys.exit()
         else:
             print("Please type 1 to start the game or type 2 to exit the game.")
+            self.menu()
             
     def entry(self):
         hero.location = "entry"
@@ -153,7 +161,8 @@ class World:
             elif action == "no":
                 game_functions.fprint("A bat flies over your head and you hear noises in the distance.")  
             elif action == "stats":
-                self.show_stats()
+                game_functions.show_stats()
+                self.entry()
             elif action == "a":
                 hero.hero_attack()
             else:
@@ -181,7 +190,7 @@ class World:
             elif action == "m":
                 self.use_medkit()  
             elif action == "stats":
-                self.show_stats()
+                game_functions.show_stats()
             elif action == "a":
                 hero.hero_attack()
             elif action == "melee":
@@ -209,7 +218,7 @@ class World:
             elif action == "m":
                 self.use_medkit()    
             elif action == "stats":
-                self.show_stats()
+                game_functions.show_stats()
             elif action == "a":
                 hero.hero_attack()
             else:
@@ -238,7 +247,7 @@ class World:
             elif action == "m":
                 self.use_medkit()   
             elif action == "stats":
-                self.show_stats()
+                game_functions.show_stats()
             elif action == "a":
                 hero.hero_attack()
             else:

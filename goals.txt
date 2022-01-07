@@ -5,3 +5,4 @@
 5- Yeni npcler ve dropped item sistemi
 6- Combat sistemi başlangıcı
 7- GUI başlangıcı
+8- Character creation
